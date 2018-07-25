@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Polidog\LoginSample\Account\Entity\Account;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class LoginUser
+class LoginUser implements UserInterface
 {
     /**
      * @var Account

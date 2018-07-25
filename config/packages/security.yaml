@@ -11,6 +11,10 @@ security:
             cost: 15
 
     firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
         account:
             pattern: ^/.*
             anonymous:  ~
@@ -21,10 +25,6 @@ security:
             logout:
                 path: app_auth_logout
 
-
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
         main:
             anonymous: true
 
