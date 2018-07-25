@@ -1,0 +1,15 @@
+<?php
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__."/src")
+    ->in(__DIR__."/src_domain")
+;
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@Symfony' => true,
+        '@Symfony:risky' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        "@PHP71Migration:risky" => true,
+    ])
+    ->setFinder($finder)
+    ->setLineEnding("\n")
+;
