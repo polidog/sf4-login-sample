@@ -8,7 +8,7 @@ use Polidog\LoginSample\Account\Entity\Account;
 
 interface AccountRepositoryInterface
 {
-    public function add(Account $account);
+    public function add(Account $account): void;
 
-    public function findEmail(string $email);
+    public function findEmail(string $email): ?Account;
 }
