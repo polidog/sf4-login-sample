@@ -6,7 +6,6 @@ namespace App\Service;
 
 use App\Entity\LoginUser;
 use Polidog\LoginSample\Account\Entity\Account;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
