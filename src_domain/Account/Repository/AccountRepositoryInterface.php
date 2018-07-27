@@ -11,4 +11,6 @@ interface AccountRepositoryInterface
     public function add(Account $account): void;
 
     public function findEmail(string $email): ?Account;
+
+    public function all(): array;
 }

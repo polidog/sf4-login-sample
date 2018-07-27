@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <h2 class="page-header">ユーザー登録</h2>
+        <div class="form">
+            <form class="form" method="POST">
+            {{ form_widget(form) }}
+                <button type="submit" class="btn btn-primary">登録する</button>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

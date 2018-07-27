@@ -22,6 +22,11 @@ class AccountRepository extends ServiceEntityRepository implements AccountReposi
         $this->_em->flush($account);
     }
 
+    public function all(): array
+    {
+        return $this->findAll();
+    }
+
     public function findEmail(string $email): ?Account
     {
         return $this->findOneBy(['email' => $email]);

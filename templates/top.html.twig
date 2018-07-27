@@ -1,1 +1,23 @@
 {% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h2>ユーザー一覧</h2>
+        <table class="table">
+            <thead>
+            <th>#</th>
+            <th>name</th>
+            <th>Email address</th>
+            </thead>
+            <tbody>
+            {% for account in accounts %}
+                <tr>
+                    <td>{{ account.id }}</td>
+                    <td>{{ account.name }}</td>
+                    <td>{{ account.email }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
