@@ -30,3 +30,8 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     Polidog\LoginSample\TransactionManagerInterface: '@App\TransactionManager'
+
+    App\Security\Guard\Authenticator\PasswordLoginAuthenticator:
+        arguments:
+            $loginPath: 'app_auth_login'
+            $loginSuccessPath: 'app_top'

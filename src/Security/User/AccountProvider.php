@@ -7,6 +7,7 @@ namespace App\Security\User;
 use App\Entity\LoginUser;
 use Polidog\LoginSample\Account\Entity\Account;
 use Polidog\LoginSample\Account\Exception\AccountNotFoundException;
+use Polidog\LoginSample\Account\UseCase\GetAccount;
 use Polidog\LoginSample\Account\UseCase\Login;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -15,6 +16,11 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class AccountProvider implements UserProviderInterface
 {
     /**
+     * @var GetAccount
+     */
+    private $getAccount;
+
+    /**
      * @var Login
      */
     private $login;
@@ -22,17 +28,17 @@ class AccountProvider implements UserProviderInterface
     /**
      * AccountProvider constructor.
      *
-     * @param Login $login
+     * @param GetAccount $getAccount
      */
-    public function __construct(Login $login)
+    public function __construct(GetAccount $getAccount)
     {
-        $this->login = $login;
+        $this->getAccount = $getAccount;
     }
 
     public function loadUserByUsername($username)
     {
         try {
-            $account = $this->login->run($username);
+            $account = $this->getAccount->email($username);
         } catch (AccountNotFoundException $e) {
             throw new UsernameNotFoundException(sprintf('User "%s" not found.', $username), $e);
         }
@@ -48,7 +54,7 @@ class AccountProvider implements UserProviderInterface
     {
         assert($user instanceof LoginUser);
         try {
-            $account = $this->login->run($user->getUsername());
+            $account = $this->getAccount->email($user->getUsername());
         } catch (AccountNotFoundException $e) {
             throw new UsernameNotFoundException(sprintf('User "%s" not found.', $user->getUsername()), $e);
         }

@@ -16,3 +16,4 @@ services:
 
     Polidog\LoginSample\Account\Repository\AccountRepositoryInterface: '@App\Repository\AccountRepository'
     Polidog\LoginSample\Account\Service\PasswordEncoderInterface: '@App\Service\PasswordEncoder'
+    Polidog\LoginSample\Account\Service\PasswordValidInterface: '@App\Service\PasswordEncoder'

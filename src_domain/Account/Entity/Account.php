@@ -6,6 +6,7 @@ namespace Polidog\LoginSample\Account\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Polidog\LoginSample\Account\Service\PasswordEncoderInterface;
+use Polidog\LoginSample\Account\Service\PasswordValidInterface;
 
 /**
  * ユーザーアカウント.
@@ -104,5 +105,10 @@ class Account
         if (null !== $this->rawPassword) {
             $this->password = $encoder->encode($this->rawPassword);
         }
+    }
+
+    public function authentication(PasswordValidInterface $passwordValid, string $loginRawPassword): bool
+    {
+        return $passwordValid->valid($loginRawPassword, $this->password);
     }
 }

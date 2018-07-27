@@ -5,40 +5,33 @@ declare(strict_types=1);
 namespace Polidog\LoginSample\Account\UseCase;
 
 use Polidog\LoginSample\Account\Entity\Account;
-use Polidog\LoginSample\Account\Exception\AccountNotFoundException;
-use Polidog\LoginSample\Account\Repository\AccountRepositoryInterface;
+use Polidog\LoginSample\Account\Service\PasswordValidInterface;
 
 class Login
 {
     /**
-     * @var AccountRepositoryInterface
+     * @var PasswordValidInterface
      */
-    private $repository;
+    private $passwordValid;
 
     /**
      * Login constructor.
      *
-     * @param AccountRepositoryInterface $repository
+     * @param PasswordValidInterface $passwordValid
      */
-    public function __construct(AccountRepositoryInterface $repository)
+    public function __construct(PasswordValidInterface $passwordValid)
     {
-        $this->repository = $repository;
+        $this->passwordValid = $passwordValid;
     }
 
     /**
-     * @param string $email
+     * @param Account $account
+     * @param string  $password
      *
-     * @return Account
-     *
-     * @throws AccountNotFoundException
+     * @return bool
      */
-    public function run(string $email): Account
+    public function password(Account $account, string $password): bool
     {
-        $account = $this->repository->findEmail($email);
-        if (false === $account instanceof Account) {
-            throw new AccountNotFoundException(sprintf('user %s not found', $email));
-        }
-
-        return $account;
+        return $account->authentication($this->passwordValid, $password);
     }
 }

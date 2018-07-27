@@ -11,4 +11,3 @@ $ bin/console d:m:m
 $ bin/console server:start
 $ open http://localhost:8000
 ```
-

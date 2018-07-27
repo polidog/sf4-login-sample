@@ -19,12 +19,12 @@ security:
             pattern: ^/.*
             anonymous:  ~
             provider: account_login
-            form_login:
-                login_path: app_auth_login
-                check_path: app_auth_login
+            guard:
+                authenticators:
+                    - App\Security\Guard\Authenticator\PasswordLoginAuthenticator
             logout:
                 path: app_auth_logout
-
+#
         main:
             anonymous: true
 

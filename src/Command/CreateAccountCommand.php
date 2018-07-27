@@ -60,7 +60,7 @@ class CreateAccountCommand extends Command
     {
         if (!$input->getArgument($name)) {
             $helper = $this->getHelper('question');
-            $question = new Question('Please enter your '.$name. ': ');
+            $question = new Question('Please enter your '.$name.': ');
             $question->setValidator(function ($value) {
                 if ('' == trim($value)) {
                     throw new \Exception('Cannot be empty');
