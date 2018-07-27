@@ -60,7 +60,7 @@ class PasswordLoginAuthenticator extends AbstractFormLoginAuthenticator
     public function supports(Request $request)
     {
         $url = $this->router->generate($this->loginPath);
-        if ($request->getPathInfo() === $url || 'POST' === $request->getMethod()) {
+        if ($request->getPathInfo() === $url && 'POST' === $request->getMethod()) {
             return true;
         }
 
