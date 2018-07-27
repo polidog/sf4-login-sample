@@ -7,8 +7,7 @@ namespace App\Security\User;
 use App\Entity\LoginUser;
 use Polidog\LoginSample\Account\Entity\Account;
 use Polidog\LoginSample\Account\Exception\AccountNotFoundException;
-use Polidog\LoginSample\Account\UseCase\GetAccount;
-use Polidog\LoginSample\Account\UseCase\Login;
+use Polidog\LoginSample\Account\UseCase\GetLoginAccount;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -16,21 +15,16 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class AccountProvider implements UserProviderInterface
 {
     /**
-     * @var GetAccount
+     * @var GetLoginAccount
      */
     private $getAccount;
 
     /**
-     * @var Login
-     */
-    private $login;
-
-    /**
      * AccountProvider constructor.
      *
-     * @param GetAccount $getAccount
+     * @param GetLoginAccount $getAccount
      */
-    public function __construct(GetAccount $getAccount)
+    public function __construct(GetLoginAccount $getAccount)
     {
         $this->getAccount = $getAccount;
     }

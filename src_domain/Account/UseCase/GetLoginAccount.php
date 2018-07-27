@@ -8,7 +8,7 @@ use Polidog\LoginSample\Account\Entity\Account;
 use Polidog\LoginSample\Account\Exception\AccountNotFoundException;
 use Polidog\LoginSample\Account\Repository\AccountRepositoryInterface;
 
-class GetAccount
+class GetLoginAccount
 {
     /**
      * @var AccountRepositoryInterface
