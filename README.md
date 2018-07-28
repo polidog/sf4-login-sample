@@ -1,5 +1,5 @@
 # polidog/sf-login-sample
-
+[![CircleCI](https://circleci.com/gh/polidog/sf4-login-sample.svg?style=svg)](https://circleci.com/gh/polidog/sf4-login-sample)
 
 ## Installation
 
