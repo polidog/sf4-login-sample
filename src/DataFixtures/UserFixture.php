@@ -1,7 +1,8 @@
 <?php
 
-namespace App\DataFixtures;
+declare(strict_types=1);
 
+namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -17,6 +18,7 @@ class UserFixture extends Fixture
 
     /**
      * UserFixture constructor.
+     *
      * @param PasswordEncoderInterface $passwordEncoder
      */
     public function __construct(PasswordEncoderInterface $passwordEncoder)
@@ -24,14 +26,12 @@ class UserFixture extends Fixture
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
-        $account = new Account('test', 'test@test.com','test');
+        $account = new Account('test', 'test@test.com', 'test');
         $account->encode($this->passwordEncoder);
 
-        $manager->persist($manager);
+        $manager->persist($account);
         $manager->flush();
-
     }
-
 }
