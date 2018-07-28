@@ -33,4 +33,4 @@ jobs:
             ~/sf4-login-sample/bin/console lint:twig src
             ~/sf4-login-sample/bin/console lint:yaml src
             ~/sf4-login-sample/vendor/bin/phpunit
-            ~/sf4-login-sample/bin/security-checker security:check
+            ~/sf4-login-sample/bin/security-checker security:check ~/sf4-login-sample/composer.lock
