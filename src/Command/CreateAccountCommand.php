@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Form\CreateAccountType;
 use Polidog\LoginSample\Account\Entity\Account;
 use Polidog\LoginSample\Account\UseCase\RegisterAccount;
 use Symfony\Component\Console\Command\Command;
@@ -11,6 +12,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Form\FormFactoryInterface;
 
 class CreateAccountCommand extends Command
 {
@@ -20,14 +22,20 @@ class CreateAccountCommand extends Command
     private $registerAccount;
 
     /**
+     * @var FormFactoryInterface
+     */
+    private $factory;
+
+    /**
      * CreateAccountCommand constructor.
      *
      * @param RegisterAccount $registerAccount
      */
-    public function __construct(RegisterAccount $registerAccount)
+    public function __construct(RegisterAccount $registerAccount, FormFactoryInterface $factory)
     {
         parent::__construct(null);
         $this->registerAccount = $registerAccount;
+        $this->factory = $factory;
     }
 
     protected function configure(): void
@@ -41,11 +49,17 @@ class CreateAccountCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $name = $input->getArgument('name');
-        $email = $input->getArgument('email');
-        $password = $input->getArgument('password');
-        $account = new Account($name, $email, $password);
-        $this->registerAccount->run($account);
+        $form = $this->factory->create(CreateAccountType::class);
+        $form->submit([
+            'name' => $input->getArgument('name'),
+            'email' => $input->getArgument('email'),
+            'rawPassword' => [
+                'first' => $input->getArgument('password'),
+                'second' => $input->getArgument('password'),
+            ],
+        ]);
+
+        $this->registerAccount->run($form->getData());
         $output->writeln('success');
     }
 
