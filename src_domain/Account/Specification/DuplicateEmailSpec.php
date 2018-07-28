@@ -24,7 +24,7 @@ class DuplicateEmailSpec implements AccountSpec
         $this->repository = $repository;
     }
 
-    public function isSatisfied(Account $account): bool
+    public function isSatisfiedBy(Account $account): bool
     {
         $duplicatedAccount = $this->repository->findEmail($account->getEmail());
         if ($duplicatedAccount instanceof Account) {

@@ -8,5 +8,5 @@ use Polidog\LoginSample\Account\Entity\Account;
 
 interface AccountSpec
 {
-    public function isSatisfied(Account $account): bool;
+    public function isSatisfiedBy(Account $account): bool;
 }

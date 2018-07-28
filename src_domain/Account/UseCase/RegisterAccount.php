@@ -54,7 +54,7 @@ class RegisterAccount
      */
     public function run(Account $account): void
     {
-        if (false === $this->specification->isSatisfied($account)) {
+        if (false === $this->specification->isSatisfiedBy($account)) {
             throw DuplicateEmailException::newException($account->getEmail());
         }
         $account->encode($this->passwordEncoder);
