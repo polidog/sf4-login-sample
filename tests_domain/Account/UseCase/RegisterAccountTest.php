@@ -46,6 +46,24 @@ class RegisterAccountTest extends TestCase
             ->shouldHaveBeenCalled();
     }
 
+    /**
+     * @expectedException Polidog\LoginSample\Account\Exception\DuplicateEmailException
+     */
+    public function testSpecException()
+    {
+        $account = $this->prophesize(Account::class);
+
+        $this->specification->isSatisfied($account)
+            ->willReturn(false);
+
+        $account->getEmail()
+            ->willReturn("test@test.com");
+
+        $useCase = new RegisterAccount($this->specification->reveal(), $this->repository->reveal(), new TestTransactionManager(), $this->passwordEncoder->reveal());
+        $useCase->run($account->reveal());
+
+    }
+
 }
 
 class TestTransactionManager implements TransactionManagerInterface
