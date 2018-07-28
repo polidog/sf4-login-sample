@@ -30,13 +30,13 @@ class RegisterAccountTest extends TestCase
     {
         $account = $this->prophesize(Account::class);
 
-        $this->specification->isSatisfied($account)
+        $this->specification->isSatisfiedBy($account)
             ->willReturn(true);
 
         $useCase = new RegisterAccount($this->specification->reveal(), $this->repository->reveal(), new TestTransactionManager(), $this->passwordEncoder->reveal());
         $useCase->run($account->reveal());
 
-        $this->specification->isSatisfied($account)
+        $this->specification->isSatisfiedBy($account)
             ->shouldHaveBeenCalled();
 
         $account->encode($this->passwordEncoder)
@@ -53,7 +53,7 @@ class RegisterAccountTest extends TestCase
     {
         $account = $this->prophesize(Account::class);
 
-        $this->specification->isSatisfied($account)
+        $this->specification->isSatisfiedBy($account)
             ->willReturn(false);
 
         $account->getEmail()
