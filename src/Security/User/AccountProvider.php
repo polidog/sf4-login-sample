@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Security\User;
 
 use App\Entity\LoginUser;
-use Polidog\LoginSample\Account\Entity\Account;
 use Polidog\LoginSample\Account\Exception\AccountNotFoundException;
 use Polidog\LoginSample\Account\UseCase\GetLoginAccount;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -31,37 +30,27 @@ class AccountProvider implements UserProviderInterface
 
     public function loadUserByUsername($username)
     {
-        try {
-            $account = $this->getAccount->email($username);
-        } catch (AccountNotFoundException $e) {
-            throw new UsernameNotFoundException(sprintf('User "%s" not found.', $username), $e);
-        }
-
-        if (false === $account instanceof Account) {
-            throw new UsernameNotFoundException(sprintf('User "%s" not found.', $username));
-        }
-
-        return new LoginUser($account);
+        return $this->getUserByEmail($username);
     }
 
     public function refreshUser(UserInterface $user)
     {
-        assert($user instanceof LoginUser);
-        try {
-            $account = $this->getAccount->email($user->getUsername());
-        } catch (AccountNotFoundException $e) {
-            throw new UsernameNotFoundException(sprintf('User "%s" not found.', $user->getUsername()), $e);
-        }
-
-        if (false === $account instanceof Account) {
-            throw new UsernameNotFoundException(sprintf('User "%s" not found.', $user->getUsername()));
-        }
-
-        return new LoginUser($account);
+        return $this->getUserByEmail($user->getUsername());
     }
 
     public function supportsClass($class)
     {
         return $class instanceof LoginUser;
+    }
+
+    private function getUserByEmail(string $username): LoginUser
+    {
+        try {
+            $account = $this->getAccount->email($username);
+
+            return new LoginUser($account);
+        } catch (AccountNotFoundException $e) {
+            throw new UsernameNotFoundException(sprintf('User "%s" not found.', $username), 0, $e);
+        }
     }
 }
