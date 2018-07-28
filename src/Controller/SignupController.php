@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Form\Account\CreateAccountType;
+use App\Form\CreateAccountType;
 use App\Service\RegisterLogin;
 use Polidog\LoginSample\Account\UseCase\RegisterAccount;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Form\Account;
+namespace App\Form;
 
 use Polidog\LoginSample\Account\Entity\Account;
 use Symfony\Component\Form\AbstractType;
