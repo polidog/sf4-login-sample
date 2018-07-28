@@ -6,5 +6,5 @@ namespace Polidog\LoginSample\Account\Service;
 
 interface PasswordValidInterface
 {
-    public function valid($raw, $encoded): bool;
+    public function valid(string $plainPassword, string $encodedPassword): bool;
 }

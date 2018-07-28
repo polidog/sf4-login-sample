@@ -33,11 +33,11 @@ class PasswordEncoder implements PasswordEncoderInterface, PasswordValidInterfac
         return $encoder->encodePassword($plainPassword, '');
     }
 
-    public function valid($raw, $encoded): bool
+    public function valid(string $plainPassword, string $encodedPassword): bool
     {
         $encoder = $this->getEncoder();
 
-        return $encoder->isPasswordValid($encoded, $raw, null);
+        return $encoder->isPasswordValid($encodedPassword, $plainPassword, null);
     }
 
     private function getEncoder()
