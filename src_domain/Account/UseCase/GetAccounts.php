@@ -27,7 +27,7 @@ class GetAccounts
     /**
      * @return Account[]
      */
-    public function run(): array
+    public function all(): array
     {
         return $this->repository->all();
     }

@@ -32,7 +32,7 @@ class TopController
     public function __invoke()
     {
         return [
-            'accounts' => $this->getAccounts->run(),
+            'accounts' => $this->getAccounts->all(),
         ];
     }
 }
