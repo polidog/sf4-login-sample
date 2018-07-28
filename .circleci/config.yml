@@ -1,0 +1,36 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.2
+      - image: circleci/mysql:5.7
+    working_directory: ~/sf4-login-sample
+    environment:
+      DATABASE_URL: 'mysql://root:@127.0.0.1:3306/sf4_loing_sample'
+    steps:
+      - checkout
+      - run: sudo docker-php-ext-install pdo_mysql
+      - run: echo -e "[Date]\ndate.timezone = Asia/Tokyo" | sudo tee /usr/local/etc/php/php.ini > /dev/null
+      - run: composer self-update
+      - restore_cache:
+          keys:
+          - composer-v1-{{ checksum "composer.lock" }}
+      - run:
+          name: run composer install
+          command: |
+            composer global require hirak/prestissimo --no-interaction
+            composer install -n --prefer-dist --no-interaction
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+          - vendor
+      - run:
+          name: run test
+          command: |
+            ~/sf4-login-sample/bin/console doctrine:database:create --no-interaction --env=dev
+            ~/sf4-login-sample/bin/console doctrine:migrations:migrate --no-interaction --env=dev
+            ~/sf4-login-sample/bin/console lint:twig src
+            ~/sf4-login-sample/bin/console lint:yaml src
+            ~/sf4-login-sample/vendor/bin/phpunit
+            ~/sf4-login-sample/bin/security-checker security:check
