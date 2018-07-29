@@ -14,9 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use Symfony\Component\Validator\Constraints as Assert;
-
-
 class CreateAccountType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -26,7 +23,7 @@ class CreateAccountType extends AbstractType
                 'label' => '名前',
             ])
             ->add('email', EmailType::class, [
-                'label' => 'メールアドレス'
+                'label' => 'メールアドレス',
             ])
             ->add('rawPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
@@ -40,6 +37,7 @@ class CreateAccountType extends AbstractType
             return $data;
         }, function ($data) {
             $password = $data['rawPassword'] ?? '';
+
             return new Account($data['name'], $data['email'], $password);
         }));
     }

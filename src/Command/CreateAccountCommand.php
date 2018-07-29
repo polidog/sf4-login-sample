@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Form\CreateAccountType;
-use Polidog\LoginSample\Account\Entity\Account;
 use Polidog\LoginSample\Account\UseCase\RegisterAccount;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
