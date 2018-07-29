@@ -28,6 +28,8 @@
     <filter>
         <whitelist>
             <directory>src</directory>
+            <exclude>src/DataFixtures/*</exclude>
+            <exclude>src/Migrations/*</exclude>
             <directory>src_domain</directory>
         </whitelist>
     </filter>
