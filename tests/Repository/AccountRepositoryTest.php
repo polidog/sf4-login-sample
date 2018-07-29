@@ -6,6 +6,7 @@ namespace App\Tests\Repository;
 use App\Repository\AccountRepository;
 use Doctrine\ORM\EntityManager;
 use Polidog\LoginSample\Account\Entity\Account;
+use Polidog\LoginSample\Account\Service\PasswordEncoderInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Input\StringInput;
@@ -45,6 +46,29 @@ class AccountRepositoryTest extends KernelTestCase
         $this->assertInstanceOf(Account::class, $account);
         $this->assertSame($email, $account->getEmail());;
     }
+
+    public function testAll()
+    {
+        $accounts = $this->repository->all();
+        $this->assertCount(1, $accounts);
+    }
+
+    public function testAdd()
+    {
+        $encoder = new class implements PasswordEncoderInterface {
+            public function encode(string $plainPassword): string
+            {
+                return md5($plainPassword.time());
+            }
+        };
+
+        $account = new Account('hoge', 'hoge@fuga.jp', 'test');
+        $account->encode($encoder);
+        $this->repository->add($account);
+
+        $this->assertNotNull($account->getId());
+    }
+
 
     private static function runCommand(KernelInterface $kernel, string $command)
     {
