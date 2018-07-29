@@ -24,17 +24,17 @@ class LoginUser implements UserInterface
         $this->account = $account;
     }
 
-    public function getId()
+    public function getId() : int
     {
         return $this->account->getId();
     }
 
-    public function getRoles()
+    public function getRoles() : array
     {
         return ['ROLE_USER'];
     }
 
-    public function getPassword()
+    public function getPassword() : string
     {
         return $this->account->getPassword();
     }
@@ -44,7 +44,7 @@ class LoginUser implements UserInterface
         return null;
     }
 
-    public function getUsername()
+    public function getUsername() : string
     {
         return $this->account->getEmail();
     }
