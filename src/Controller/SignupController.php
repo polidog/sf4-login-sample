@@ -70,7 +70,7 @@ class SignupController
 
     /**
      * @Route("/form", methods={"POST"})
-     * @Template()
+     * @Template("signup/form.html.twig")
      *
      * @param Request $request
      *

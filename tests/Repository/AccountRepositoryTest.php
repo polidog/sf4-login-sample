@@ -4,7 +4,6 @@ namespace App\Tests\Repository;
 
 
 use App\Repository\AccountRepository;
-use Doctrine\ORM\EntityManager;
 use Polidog\LoginSample\Account\Entity\Account;
 use Polidog\LoginSample\Account\Service\PasswordEncoderInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;

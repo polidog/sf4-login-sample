@@ -39,7 +39,8 @@ class CreateAccountType extends AbstractType
         $builder->addModelTransformer(new CallbackTransformer(function ($data) {
             return $data;
         }, function ($data) {
-            return new Account($data['name'], $data['email'], $data['rawPassword']);
+            $password = $data['rawPassword'] ?? '';
+            return new Account($data['name'], $data['email'], $password);
         }));
     }
 
