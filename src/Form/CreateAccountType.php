@@ -26,8 +26,7 @@ class CreateAccountType extends AbstractType
                 'label' => '名前',
             ])
             ->add('email', EmailType::class, [
-                'label' => 'メールアドレス',
-                'constraints' => [new Assert\Email()]
+                'label' => 'メールアドレス'
             ])
             ->add('rawPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
