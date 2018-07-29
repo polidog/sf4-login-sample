@@ -32,5 +32,11 @@ jobs:
             ~/sf4-login-sample/bin/console doctrine:migrations:migrate --no-interaction --env=dev
             ~/sf4-login-sample/bin/console lint:twig src
             ~/sf4-login-sample/bin/console lint:yaml src
-            ~/sf4-login-sample/vendor/bin/phpunit
             ~/sf4-login-sample/vendor/bin/security-checker security:check ~/sf4-login-sample/composer.lock
+            ~/sf4-login-sample/vendor/bin/phpunit --coverage-clover=coverage.clover
+      - run:
+          name: Send code cover to scrutinizer
+          command: |
+            wget https://scrutinizer-ci.com/ocular.phar
+            php ocular.phar code-coverage:upload --access-token=$SCRUTINIZER_TOKEN --format=php-clover coverage.clover
+
