@@ -44,6 +44,17 @@ class TransactionManagerTest extends TestCase
             ->shouldHaveBeenCalled();
     }
 
+    public function testTransactional()
+    {
+        $tm = $this->getTransactionManager();
+        $tm->transactional(function(){});
+
+        $this->entityManager->beginTransaction()
+            ->shouldHaveBeenCalled();
+
+        $this->entityManager->commit()
+            ->shouldHaveBeenCalled();
+    }
 
     private function getTransactionManager()
     {
