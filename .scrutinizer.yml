@@ -15,3 +15,11 @@ build:
 
 tools:
   external_code_coverage: true
+  php_sim: true
+  php_pdepend: true
+  php_analyzer: true
+  php_cpd: true
+  php_mess_detector:
+    enabled: true
+    config:
+      ruleset: ./phpmd.xml
